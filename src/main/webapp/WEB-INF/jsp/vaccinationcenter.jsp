@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>            <!--taglib directive for <forEach> tag  -->
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  <!-- this taglib for "form:form" tags  -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="com.example.demo.entity.pacUser" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +22,8 @@
 		         	<th><a href="/citizens">Citizens</a></th>
 		         	<th><a href="/vaccinationcenter">Vaccination Centers</a></th>
 		         	<th><a href="/login"> Logout</a></th>
-		         	<th>Welcome, ${user.name}</th>
+		         	<%-- <th>Welcome, ${user.name}</th> --%>
+		         	<th>Welcome, <%= ((pacUser) session.getAttribute("user")).getName() %></th>
 		         </thead>
 					<tr>
 
@@ -32,7 +35,7 @@
 	</div>
 		<br>
 		<br>
-		<h2>Centers</h2> <br>
+		<h2 style="text-align:center">Centers</h2> <br>
 		<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
@@ -63,7 +66,7 @@
         		</c:forEach>
         		</tbody>
 		  </table>
-		
+		<p style="text-align:center">Total ${fn:length(vaccinationCentersList)} Vaccination Centers found.</p>
 		</div>
 		<div class="col-md-2"></div>
 	</div>

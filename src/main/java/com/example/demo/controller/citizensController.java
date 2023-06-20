@@ -29,6 +29,9 @@ public class citizensController {
     @GetMapping("/citizens")
     public ModelAndView citizensHomePage() {
         ModelAndView mv = new ModelAndView();
+        Long id = (long) 3;
+        citizens citizenList = citizensDao.read(id).orElse(null);
+        System.out.println(citizenList.getVaccinationCenter().getName());
         System.out.println("citizens " + citizensDao.read());
         mv.addObject("citizensList", citizensDao.read());
         mv.addObject("citizens", new citizens());

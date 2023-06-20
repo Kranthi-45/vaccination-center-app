@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dao.pacUserDao;
 import com.example.demo.entity.pacUser;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,7 +33,7 @@ public class pacUserController {
     }
     
     @PostMapping("/login")
-    public ModelAndView login(@ModelAttribute("user") pacUser user) {
+    public ModelAndView login(@ModelAttribute("user") pacUser user, HttpSession session) {
         ModelAndView mv = new ModelAndView();
 
         // Check if the user exists in the database
@@ -41,6 +44,7 @@ public class pacUserController {
             mv.setViewName("vaccinationcenter");
             mv.addObject("message", "Login successful!");
             mv.addObject("user", existingUser);
+            session.setAttribute("user", existingUser);
         } else {
             // User authentication failed
             mv.setViewName("login");

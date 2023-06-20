@@ -4,6 +4,9 @@ import com.example.demo.dao.vaccinationCenterDao;
 import com.example.demo.entity.pacUser;
 import com.example.demo.entity.vaccinationCenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,6 +43,13 @@ public class vaccinationCenterController {
     @GetMapping("/addVaccinationCenter")
     public ModelAndView addVaccinationCenter() {
         ModelAndView mv = new ModelAndView();
+    	List<String> cityList = new ArrayList<>();
+    	cityList.add("South Bengaluru");
+    	cityList.add("North Bengaluru");
+    	cityList.add("Hyderabad");
+    	cityList.add("Pune");
+    	cityList.add("Mumbai");
+        mv.addObject("cityList", cityList);
         mv.addObject("addVaccinationCenter", new vaccinationCenter());
         mv.setViewName("addNewVaccinationCenter");
         return mv;
@@ -48,7 +58,20 @@ public class vaccinationCenterController {
     @GetMapping("/select")
     public ModelAndView select(@RequestParam("vid") Long id) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("addVaccinationCenter", vaccinationCenterDao.read(id).orElse(null));
+    	List<String> cityList = new ArrayList<>();
+    	cityList.add("South Bengaluru");
+    	cityList.add("North Bengaluru");
+    	cityList.add("Hyderabad");
+    	cityList.add("Pune");
+    	cityList.add("Mumbai");
+        mv.addObject("cityList", cityList);
+        vaccinationCenter vaccinationCenter = vaccinationCenterDao.read(id).orElse(null);
+        if(vaccinationCenter != null) {
+//            mv.addObject("selectedCity", vaccinationCenter.getCity());
+            mv.addObject("selectedCity", "Hyderabad");
+
+        }
+        mv.addObject("addVaccinationCenter", vaccinationCenter);
         mv.setViewName("addNewVaccinationCenter");
         return mv;
     }
